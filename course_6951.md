@@ -1,0 +1,134 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#maincontent"
+  - generic [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e8]:
+        - generic [ref=e9]: 
+        - text: "E-mail:"
+        - link "kti@stiki.ac.id" [ref=e10] [cursor=pointer]:
+          - /url: mailto:kti@stiki.ac.id
+      - generic [ref=e12]:
+        - link "" [ref=e13] [cursor=pointer]:
+          - /url: http://facebook.com/stiki.malang
+        - link "" [ref=e14] [cursor=pointer]:
+          - /url: http://twitter.com/stikimalang
+        - link "" [ref=e15] [cursor=pointer]:
+          - /url: http://instagram.com/stikimalang
+        - link "" [ref=e16] [cursor=pointer]:
+          - /url: https://www.youtube.com/channel/UCHGBqOEMwT6ktWfq1eq74ag
+    - banner [ref=e17]:
+      - generic [ref=e19]:
+        - link "logo" [ref=e22] [cursor=pointer]:
+          - /url: https://ebelajar.stiki.ac.id
+          - img "logo" [ref=e23]
+        - generic [ref=e26]:
+          - generic "Show message window with no new messages" [ref=e28] [cursor=pointer]:
+            - img "Toggle messages menu" [ref=e29]
+          - generic "Show notification window with 592 new notifications" [ref=e31] [cursor=pointer]:
+            - img "Toggle notifications menu" [ref=e32]
+            - generic [ref=e33]: "592"
+          - menubar [ref=e36]:
+            - menuitem "amien@stiki.ac.id Mukhlis Amien, M.Kom" [ref=e37] [cursor=pointer]:
+              - generic [ref=e39]: amien@stiki.ac.id Mukhlis Amien, M.Kom
+          - link "Picture of amien@stiki.ac.id Mukhlis Amien, M.Kom":
+            - /url: https://ebelajar.stiki.ac.id/user/view.php?id=97&course=6951
+            - img "Picture of amien@stiki.ac.id Mukhlis Amien, M.Kom" [ref=e41] [cursor=pointer]
+    - banner [ref=e42]:
+      - navigation [ref=e43]:
+        - generic [ref=e44]:
+          - link "Dashboard" [ref=e45] [cursor=pointer]:
+            - /url: https://ebelajar.stiki.ac.id
+          - generic:
+            - list [ref=e46]:
+              - listitem [ref=e47]:
+                - link "Akademik" [ref=e48] [cursor=pointer]:
+                  - /url: "#cm_submenu_1"
+              - listitem [ref=e50]:
+                - link "Biro & UPT" [ref=e51] [cursor=pointer]:
+                  - /url: "#cm_submenu_2"
+              - listitem [ref=e53]:
+                - link "Pustaka" [ref=e54] [cursor=pointer]:
+                  - /url: http://ebelajar.stiki.ac.id/course/view.php?id=1296
+              - listitem [ref=e55]:
+                - link "My courses" [ref=e56] [cursor=pointer]:
+                  - /url: ""
+            - list:
+              - listitem
+            - generic [ref=e58]:
+              - textbox [ref=e60]: Search courses
+              - button "Submit" [ref=e61] [cursor=pointer]
+    - generic [ref=e63]:
+      - generic [ref=e65]:
+        - generic [ref=e66]:
+          - generic [ref=e67]: Page path
+          - navigation "Page path" [ref=e68]:
+            - list [ref=e69]:
+              - listitem [ref=e70]:
+                - link "Dashboard" [ref=e72] [cursor=pointer]:
+                  - /url: https://ebelajar.stiki.ac.id/my/
+                - text: 
+              - listitem [ref=e73]: My courses 
+              - listitem [ref=e74]:
+                - link "Teknik Informatika (P)" [ref=e76] [cursor=pointer]:
+                  - /url: https://ebelajar.stiki.ac.id/course/index.php?categoryid=4
+                - text: 
+              - listitem [ref=e77]:
+                - link "IF24KK42 KECERDASAN BUATAN P" [ref=e79] [cursor=pointer]:
+                  - /url: https://ebelajar.stiki.ac.id/course/view.php?id=6951
+        - navigation [ref=e80]:
+          - menubar [ref=e82]:
+            - menuitem " " [ref=e83] [cursor=pointer]
+      - main [ref=e88]:
+        - generic [ref=e90]:
+          - generic [ref=e91]:
+            - text: Your progress
+            - link "Help with Completion tick boxes" [ref=e93] [cursor=pointer]:
+              - /url: https://ebelajar.stiki.ac.id/help.php?component=completion&identifier=completionicons&lang=en
+              - img "Help with Completion tick boxes" [ref=e94]
+          - heading "Topic outline" [level=2] [ref=e95]
+          - list [ref=e96]:
+            - region "General" [ref=e98]:
+              - generic [ref=e100]:
+                - heading "General" [level=3] [ref=e101]
+                - list [ref=e102]
+            - generic [ref=e233]:
+              - generic [ref=e234] [cursor=pointer]: "1"
+              - generic [ref=e235] [cursor=pointer]: "2"
+              - generic [ref=e236] [cursor=pointer]: "3"
+              - generic [ref=e237] [cursor=pointer]: "4"
+              - generic [ref=e238] [cursor=pointer]: "5"
+              - generic [ref=e239] [cursor=pointer]: "6"
+              - generic [ref=e240] [cursor=pointer]: "7"
+              - generic [ref=e241] [cursor=pointer]: "8"
+              - generic [ref=e242] [cursor=pointer]: "9"
+              - generic [ref=e243] [cursor=pointer]: "10"
+              - generic [ref=e244] [cursor=pointer]: "11"
+              - generic [ref=e245] [cursor=pointer]: "12"
+              - generic [ref=e246] [cursor=pointer]: "13"
+              - generic [ref=e247] [cursor=pointer]: "14"
+              - generic [ref=e248] [cursor=pointer]: "15"
+              - generic [ref=e249] [cursor=pointer]: "16"
+            - region "Pertemuan 1 – Pendahuluan Kecerdasan Buatan" [ref=e250]:
+              - generic [ref=e252]:
+                - heading "Pertemuan 1 – Pendahuluan Kecerdasan Buatan" [level=3] [ref=e253]
+                - generic [ref=e255]
+                - list [ref=e266]
+      - text: 
+    - contentinfo [ref=e298]:
+      - generic [ref=e299]:
+        - complementary [ref=e300]
+        - complementary [ref=e301]
+        - complementary [ref=e302]
+      - paragraph [ref=e305]:
+        - link "Moodle Docs for this page" [ref=e306] [cursor=pointer]:
+          - /url: http://docs.moodle.org/33/en/course/view/buttons
+  - menubar [ref=e307]:
+    - generic [ref=e308]:
+      - generic [ref=e309]:
+        - menu [ref=e311] [cursor=pointer]:
+          - heading "Navigation" [level=2] [ref=e313]
+        - menu [ref=e315] [cursor=pointer]:
+          - heading "Administration" [level=2] [ref=e317]
+      - img "Undock all" [ref=e319] [cursor=pointer]
+  - text:  

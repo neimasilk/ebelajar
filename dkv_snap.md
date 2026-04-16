@@ -1,0 +1,49 @@
+- generic [active] [ref=e1]:
+  - link "Skip to main content" [ref=e2] [cursor=pointer]:
+    - /url: "#maincontent"
+  - generic [ref=e3]:
+    - generic [ref=e5]:
+      - generic [ref=e8]:
+        - generic [ref=e9]: 
+        - text: "E-mail:"
+        - link "kti@stiki.ac.id" [ref=e10] [cursor=pointer]:
+          - /url: mailto:kti@stiki.ac.id
+      - generic [ref=e12]:
+        - link "" [ref=e13] [cursor=pointer]:
+          - /url: http://facebook.com/stiki.malang
+        - link "" [ref=e14] [cursor=pointer]:
+          - /url: http://twitter.com/stikimalang
+        - link "" [ref=e15] [cursor=pointer]:
+          - /url: http://instagram.com/stikimalang
+        - link "" [ref=e16] [cursor=pointer]:
+          - /url: https://www.youtube.com/channel/UCHGBqOEMwT6ktWfq1eq74ag
+    - banner [ref=e17]:
+      - generic [ref=e19]:
+        - link "logo" [ref=e22] [cursor=pointer]:
+          - /url: https://ebelajar.stiki.ac.id
+        - generic [ref=e26]
+    - banner [ref=e42]:
+      - navigation [ref=e43]:
+        - generic [ref=e44]
+    - generic [ref=e63]:
+      - generic [ref=e65]:
+        - generic [ref=e66]
+        - navigation [ref=e80]
+      - main [ref=e88]:
+        - generic [ref=e90]
+      - text: 
+    - contentinfo [ref=e324]:
+      - generic [ref=e325]:
+        - complementary [ref=e326]
+        - complementary [ref=e327]
+        - complementary [ref=e328]
+      - paragraph [ref=e331]:
+        - link "Moodle Docs for this page" [ref=e332] [cursor=pointer]:
+          - /url: http://docs.moodle.org/33/en/course/view/buttons
+  - menubar [ref=e333]:
+    - generic [ref=e334]:
+      - generic [ref=e335]:
+        - menu [ref=e337] [cursor=pointer]
+        - menu [ref=e341] [cursor=pointer]
+      - img "Undock all" [ref=e345] [cursor=pointer]
+  - text:  
