@@ -1,2 +1,6 @@
 .playwright-mcp/
 .claude/
+
+# Cache Python
+__pycache__/
+*.pyc

@@ -1,0 +1,128 @@
+<!-- Modul Pertemuan 1 — Pembelajaran Mesin (A & P) · Ganjil 2026/2027
+     Diperkaya 11 Sep 2026 dari deck P1 (42 slide) + Modul Mandiri P1.
+     Draf bab buku ajar ber-ISBN (Target #2 semester). Placeholder: {FORUM} {MODUL} {DRIVE} {TUGAS} -->
+<h2>Ringkasan</h2>
+<p>Pertemuan ini adalah fondasi satu semester. Kita mulai bukan dari algoritma, melainkan dari pertanyaan
+yang lebih mendasar: <strong>apa itu Machine Learning</strong>, dan <strong>kenapa 70&ndash;80% waktu sebuah
+proyek ML habis di data</strong> &mdash; bukan di pemilihan model. Model bagus tidak menyelamatkan data buruk;
+itulah sebabnya preprocessing kita jadikan pondasi sejak hari pertama.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Menjelaskan perbedaan <em>pemrograman biasa</em> dan <em>Machine Learning</em> dengan contoh sendiri.</li>
+<li>Menyebutkan tiga paradigma ML dan mencocokkannya dengan jenis masalah yang cocok untuk masing-masing.</li>
+<li>Jabarkan alur proyek ML dari ujung ke ujung, dan posisi preprocessing di dalamnya.</li>
+<li>Mengenali tiga masalah yang selalu ada di data nyata: <em>missing values</em>, skala fitur, dan data kategorikal.</li>
+<li>Menjelaskan apa itu <em>data leakage</em>, kenapa berbahaya, dan cara menghindarinya dengan <em>Pipeline</em>.</li>
+</ol>
+
+<h2>Apa itu Machine Learning?</h2>
+<p>Machine Learning adalah cabang kecerdasan buatan yang membuat komputer <strong>belajar dari data</strong>,
+bukan dari aturan yang kita tulis satu per satu. Perbedaannya terlihat dari arah penyelesaiannya:</p>
+<ul>
+<li><strong>Pemrograman biasa:</strong> <em>aturan + data &rarr; jawaban</em>. Kita yang menulis logikanya.</li>
+<li><strong>Machine Learning:</strong> <em>data + jawaban &rarr; aturan (model)</em>. Mesin yang menemukan polanya.</li>
+</ul>
+<p>Contoh: penyaring spam. Mustahil kita menulis aturan untuk semua variasi email spam &mdash; kata-katanya terus
+berubah, polanya terus bergeser. Yang realistis: kumpulkan ribuan email yang sudah ditandai spam/bukan, lalu
+biarkan algoritma menemukan sendiri ciri-cirinya.</p>
+
+<h3>Tiga paradigma yang akan kita pelajari</h3>
+<table width="100%">
+<tr><th align="left">Paradigma</th><th align="left">Ciri</th><th align="left">Contoh masalah</th></tr>
+<tr><td><strong>Supervised</strong></td><td>Data berlabel (input &rarr; jawaban benar)</td><td>Klasifikasi spam, prediksi harga rumah</td></tr>
+<tr><td><strong>Unsupervised</strong></td><td>Tanpa label; mencari struktur tersembunyi</td><td>Segmentasi pelanggan, reduksi dimensi</td></tr>
+<tr><td><strong>Reinforcement</strong></td><td>Agen belajar dari <em>reward</em> lingkungan</td><td>Game, robotika, optimalisasi</td></tr>
+</table>
+
+<h3>Alur proyek ML dari ujung ke ujung</h3>
+<ol>
+<li><strong>Rumusan masalah</strong> &mdash; apa yang diprediksi, dan apa ukuran berhasilnya?</li>
+<li><strong>Kumpulkan data</strong> &mdash; dari mana, seberapa banyak, seberapa dipercaya?</li>
+<li><strong>EDA &amp; preprocessing</strong> &larr; <em>di sinilah kelas ini memulai, dan di sinilah mayoritas waktu proyek nyata habis</em></li>
+<li><strong>Pilih &amp; latih model</strong></li>
+<li><strong>Evaluasi</strong> &mdash; dengan metrik yang jujur, pada data yang belum pernah dilihat model</li>
+<li><strong>Deploy &amp; pantau</strong> &mdash; model yang sudah jalan tetap perlu diawasi</li>
+</ol>
+
+<h2>Preprocessing itu pondasi: tiga masalah yang selalu ada</h2>
+<h3>Masalah 1 &mdash; Missing values</h3>
+<p>Data nyata selalu punya nilai kosong: umur penumpang tidak tercatat, alamat tidak diisi. Langkah pertama
+bukan langsung menghapus, melainkan <strong>kenali dulu</strong>: berapa persen kosong per kolom? Apakah
+kosongnya acak, atau ada polanya?</p>
+<ul>
+<li><strong>Buang barisnya</strong> &mdash; aman kalau sedikit, boros kalau banyak</li>
+<li><strong>Buang kolomnya</strong> &mdash; kalau kolom itu hampir kosong atau tidak informatif</li>
+<li><strong>Isi (imputasi)</strong> &mdash; dengan rata-rata/median (numerik) atau modus (kategorikal)</li>
+</ul>
+
+<h3>Masalah 2 &mdash; Skala fitur</h3>
+<p>Usia berkisar 0&ndash;80, penghasilan 0&ndash;100.000.000. Tanpa penyeragaman skala, algoritma berbasis
+jarak (KNN, SVM) akan <strong>didominasi fitur berangka besar</strong> &mdash; bukan karena lebih informatif,
+melainkan karena satuannya. Solusinya: normalisasi/standardisasi (diperdalam di Pertemuan 2).</p>
+
+<h3>Masalah 3 &mdash; Data kategorikal (encoding)</h3>
+<p>Model hanya mengerti angka. Data kategorikal harus dikonversi:</p>
+<ul>
+<li><strong>One-Hot Encoding</strong> &mdash; satu kolom biner per kategori, untuk data <em>nominal</em> (tanpa urutan):
+'Southampton', 'Cherbourg', 'Queenstown' &rarr; tiga kolom 0/1</li>
+<li><strong>Ordinal Encoding</strong> &mdash; angka berurutan, hanya untuk data yang memang <em>berurutan</em>:
+'kecil' &lt; 'sedang' &lt; 'besar'</li>
+</ul>
+
+<h3>Kesalahan nomor satu pemula: data leakage</h3>
+<p><em>Data leakage</em> = informasi dari data uji "bocor" ke proses latih &mdash; misalnya <em>scaler</em>
+di-<em>fit</em> pada gabungan train + test. Akibatnya: akurasi terlihat bagus di laptop Anda, lalu jatuh
+di dunia nyata. Ini kesalahan yang paling sering membuat proyek pemula terlihat "berhasil" padahal tidak.</p>
+<p>Cara menghindarinya: <strong>split dulu, baru fit</strong>. Semua transformasi di-<em>fit</em> hanya pada
+data latih &mdash; dan cara paling aman membungkusnya adalah <em>Pipeline</em>:</p>
+<pre>from sklearn.pipeline import Pipeline
+from sklearn.compose import ColumnTransformer
+from sklearn.impute import SimpleImputer
+from sklearn.preprocessing import StandardScaler, OneHotEncoder
+
+num_pipe = Pipeline([
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler',  StandardScaler()),
+])
+cat_pipe = Pipeline([
+    ('imputer', SimpleImputer(strategy='most_frequent')),
+    ('onehot',  OneHotEncoder(handle_unknown='ignore')),
+])
+preprocess = ColumnTransformer([
+    ('num', num_pipe, num_cols),
+    ('cat', cat_pipe, cat_cols),
+])
+model = Pipeline([
+    ('prep', preprocess),
+    ('clf',  LogisticRegression()),
+])
+model.fit(X_train, y_train)   # split dulu, baru fit</pre>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>ML menemukan aturan dari data; pemrograman biasa menulis aturannya sendiri.</li>
+<li>Tiga paradigma: supervised, unsupervised, reinforcement &mdash; masing-masing cocok untuk jenis masalah berbeda.</li>
+<li>70&ndash;80% waktu proyek ML nyata habis di data, bukan di model.</li>
+<li>Tiga masalah bawaan data nyata: missing values, skala berbeda, data kategorikal.</li>
+<li><em>Data leakage</em> membuat hasil jujur menjadi bohong &mdash; split dulu, baru fit; bungkus dalam Pipeline.</li>
+</ul>
+
+<h2>Uji pemahaman mandiri</h2>
+<ol>
+<li>Sebutkan tiga risiko kalau preprocessing diabaikan, beserta contoh akibatnya pada akurasi.</li>
+<li>Untuk kolom "kota tempat tinggal", teknik encoding apa yang tepat &mdash; one-hot atau ordinal? Mengapa?</li>
+<li>Mengapa <em>scaler</em> yang di-<em>fit</em> pada gabungan train+test disebut kebocoran? Apa yang bocor darinya?</li>
+<li>Sebutkan satu masalah di sekitar Anda yang menurut Anda cocok diselesaikan unsupervised &mdash; dan jelaskan kenapa bukan supervised.</li>
+</ol>
+
+<h2>Kegiatan &amp; bahan terkait</h2>
+<ul>
+<li><strong>Modul Mandiri Pertemuan 1</strong> &mdash; panduan belajar mandiri (checklist EDA &rarr; preprocessing &rarr; baseline &rarr; evaluasi + rubrik 100 poin):
+<a href="{MODUL}">buka Modul Mandiri</a>. Tugas akhir modulnya dikumpulkan sebagai <strong>Tugas 1 di Pertemuan 2</strong>.</li>
+<li><strong>Exit-ticket pertemuan ini</strong> &mdash; ditulis di forum diskusi:
+<a href="{FORUM}">Diskusi Awal: Apa itu Machine Learning Menurut Anda?</a></li>
+<li><strong>Slide &amp; bahan lengkap</strong> (deck, video, audio, modul PDF) di Google Drive:
+<a href="{DRIVE}">folder Pertemuan 1</a>.</li>
+</ul>

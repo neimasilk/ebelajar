@@ -1,0 +1,140 @@
+<!-- Modul Pertemuan 3 - Pembelajaran Mesin (A & P) - Ganjil 2026/2027
+     Ditulis 18 Sep 2026 dari Modul Mandiri P3 di Drive ("Encoding & Feature Thinking")
+     + LKS Colab LKS_P3_Encoding_Feature_Thinking.ipynb.
+     Draf bab buku ajar ber-ISBN (Target #2 semester). Placeholder: {DRIVE} {LKS} {EXIT} -->
+<h2>Ringkasan</h2>
+<p>Sampai Pertemuan 2 kita hanya menyentuh kolom angka: mengisi nilai hilang, lalu menyamakan skala. Seluruh
+kolom kategori &mdash; <em>Sex</em>, <em>Embarked</em>, <em>Pclass</em> &mdash; kita hindari. Pertemuan ini
+menghadapinya. Dua hal dikerjakan sekaligus: <strong>encoding</strong>, mengubah kategori menjadi angka tanpa
+menyelundupkan klaim yang tidak benar; dan <strong>feature thinking</strong>, membuat kolom baru yang lebih
+informatif daripada kolom aslinya. Benang merah keduanya satu: semuanya harus terjadi <em>di dalam
+Pipeline</em>, karena di luar pipeline hampir semua kesalahan berubah menjadi kebocoran data.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Menjelaskan perbedaan <strong>One-Hot Encoding</strong> dan <strong>Ordinal Encoding</strong>, serta
+risiko <strong>target encoding</strong>.</li>
+<li>Melakukan encoding kategorikal di dalam <strong>Pipeline/ColumnTransformer</strong> untuk mencegah
+kebocoran data.</li>
+<li>Merancang minimal dua <strong>fitur turunan</strong> dan menjelaskan rasional domainnya.</li>
+<li>Mengevaluasi dampak encoding dan fitur turunan pada model <strong>linear</strong> (Logistic Regression)
+dan <strong>berbasis pohon</strong> (Decision Tree / Random Forest).</li>
+<li>Menyusun <strong>ablation study</strong> dan membacanya secara jujur.</li>
+</ol>
+
+<h2>Dua skema encoding</h2>
+<p><strong>One-Hot Encoding (OHE)</strong> membuat satu kolom biner untuk setiap kategori. Aman untuk kategori
+<em>nominal</em> &mdash; kategori tanpa urutan. Dua setelan wajib:</p>
+<ul>
+<li><code>handle_unknown='ignore'</code> &mdash; agar kategori yang belum pernah terlihat saat latih tidak
+membuat program berhenti saat uji.</li>
+<li><code>drop='if_binary'</code> &mdash; kolom yang hanya punya dua nilai (misalnya <em>Sex</em>) cukup
+diwakili satu kolom. Dua kolom akan saling melengkapi sempurna dan hanya menambah redundansi.</li>
+</ul>
+<p><strong>Ordinal Encoding</strong> memetakan kategori ke 0, 1, 2, ... dalam satu kolom. Ini tepat hanya jika
+kategorinya memang <em>berurutan secara alami</em>, misalnya tingkat pendidikan SD &lt; SMP &lt; SMA &lt; S1.
+Menggunakannya pada <em>Embarked</em> berarti mengklaim kepada model bahwa S &lt; C &lt; Q, dan bahwa jarak
+Q ke S dua kali jarak C ke S. Tidak ada yang membenarkan klaim itu.</p>
+<p>Efeknya berbeda menurut jenis model: model <strong>linear</strong> membaca angka sebagai besaran, sehingga
+sangat terpengaruh penyandian; model <strong>berbasis pohon</strong> hanya memecah pada ambang, sehingga jauh
+lebih tahan. Karena itu tabel ablation nanti membandingkan keduanya, bukan salah satu.</p>
+
+<h3>Kategori langka</h3>
+<p>Kategori yang muncul pada kurang dari satu sampai tiga persen baris menghasilkan kolom OHE yang hampir
+seluruhnya nol. Model cenderung menghafalnya alih-alih belajar darinya. Penanganan standarnya menggabungkan
+kategori semacam itu menjadi satu kategori <code>'Other'</code>. Modul memakai ambang dua persen; angka itu
+bukan hukum, tetapi ambang yang Anda pakai wajib dilaporkan.</p>
+<p>Syarat mutlaknya: daftar kategori langka ditentukan <strong>dari data latih saja</strong>. Menghitungnya
+dari seluruh data berarti informasi data uji sudah ikut membentuk model.</p>
+
+<h3>Target encoding: kuat dan berbahaya</h3>
+<p>Target encoding menyandikan kategori menjadi rata-rata targetnya. Sangat efektif untuk kategori
+berkardinalitas tinggi &mdash; dan sekaligus cara tercepat menipu diri sendiri, karena Anda memasukkan
+jawaban ke dalam fitur. Jika dicoba, pengkodean harus dilakukan <em>out-of-fold</em> di dalam
+cross-validation. Di modul ini statusnya opsional: jika belum nyaman, lewati saja.</p>
+
+<h2>Feature thinking</h2>
+<p>Bagian ini menentukan hasil lebih besar daripada pemilihan model, tetapi paling jarang diajarkan. Empat
+fitur turunan pada Titanic:</p>
+<ul>
+<li><strong>FamilySize</strong> = SibSp + Parch + 1 &mdash; ukuran rombongan mempengaruhi perilaku evakuasi.</li>
+<li><strong>IsAlone</strong> = FamilySize == 1 &mdash; penumpang sendirian bergerak berbeda dari yang menjaga
+keluarganya.</li>
+<li><strong>FarePerPerson</strong> = Fare / FamilySize &mdash; <em>Fare</em> adalah harga tiket rombongan,
+sehingga keluarga besar tampak kaya. Dibagi jumlah orang, sinyal kelas ekonominya baru jujur.</li>
+<li><strong>AgeBin</strong> = kuantil usia &mdash; hubungan usia dengan keselamatan tidak linear; anak-anak
+dan lansia berperilaku berbeda.</li>
+</ul>
+<p><em>FarePerPerson</em> adalah contoh terbaik di daftar ini, karena ia tidak sekadar menambah kolom: ia
+<strong>memperbaiki kolom yang menyesatkan</strong>. Itulah yang dimaksud berpikir tentang fitur.</p>
+
+<h3>Di mana fitur dibuat menentukan benar atau bocor</h3>
+<p>Fitur turunan dibuat di dalam <em>transformer</em> khusus, bukan di sel notebook terpisah. Aturan
+pembagiannya sederhana: apa pun yang <strong>dipelajari dari data</strong> masuk ke <code>fit()</code>;
+apa pun yang sekadar dihitung ulang per baris masuk ke <code>transform()</code>.</p>
+<pre>class FeatureMaker(BaseEstimator, TransformerMixin):
+    def fit(self, X, y=None):
+        q = np.quantile(X['Age'].dropna(), [0, .25, .5, .75, 1.0])
+        self._age_bins = np.unique(q)      # dipelajari -> fit
+        return self
+
+    def transform(self, X):
+        X = X.copy()
+        X['FamilySize']    = X['SibSp'] + X['Parch'] + 1
+        X['IsAlone']       = (X['FamilySize'] == 1).astype(int)
+        X['FarePerPerson'] = X['Fare'] / X['FamilySize'].clip(lower=1)
+        X['AgeBin'] = pd.cut(X['Age'], bins=self._age_bins,
+                             include_lowest=True).astype(str)
+        return X</pre>
+<p>Batas <em>AgeBin</em> adalah kuantil, yaitu statistik yang dipelajari dari data, sehingga harus dihitung
+di <code>fit()</code>. <em>FamilySize</em> hanya penjumlahan dalam baris itu sendiri, sehingga aman di
+<code>transform()</code>. Perbedaan kecil ini persis yang memisahkan eksperimen sah dari angka fiktif.</p>
+<p>Gunakan <code>make_column_selector</code> berdasarkan tipe data pada ColumnTransformer, bukan daftar nama
+kolom. Dengan begitu kolom baru hasil FeatureMaker otomatis ikut diproses.</p>
+
+<h2>Ablation study</h2>
+<p>Membuat fitur baru tidak sama dengan membuktikan fitur itu berguna. Baseline dibuat cukup dengan menghapus
+langkah <code>('feat', FeatureMaker())</code> dari pipeline; sisanya &mdash; seed, split, model, metrik &mdash;
+harus identik. Tanpa syarat identik itu, selisih angkanya tidak berarti apa-apa.</p>
+<p>Membacanya juga perlu kejujuran. Bila selisihnya 0,812 lawan 0,808 sementara simpangan antar-fold 0,03,
+selisih itu tenggelam dalam derau: laporkan rata-rata <em>beserta</em> simpangannya. Dan bila fitur baru Anda
+justru kalah, itu hasil yang sah &mdash; tuliskan mengapa menurut Anda begitu. Analisis itulah yang dinilai,
+bukan tingginya angka.</p>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>Ordinal untuk kategori berurutan, One-Hot untuk sisanya; <code>drop='if_binary'</code> dan
+<code>handle_unknown</code> bukan opsional.</li>
+<li>Efek encoding berbeda antara model linear dan model berbasis pohon.</li>
+<li>Semua yang dipelajari dari data harus dipelajari dari data latih saja, di dalam pipeline.</li>
+<li>Fitur terbaik memperbaiki kolom yang menyesatkan, bukan sekadar menambah kolom.</li>
+<li>Ablation tanpa kontrol yang identik bukan bukti apa pun.</li>
+</ul>
+
+<h2>Uji pemahaman</h2>
+<ol>
+<li>Kapan <code>OrdinalEncoder</code> lebih tepat daripada <code>OneHotEncoder</code>? Beri contoh.</li>
+<li>Jelaskan satu skenario kebocoran data akibat encoding atau feature engineering.</li>
+<li>Mengapa target encoding rawan overfitting, dan bagaimana mitigasinya?</li>
+<li>Sebutkan dua fitur turunan yang masuk akal pada Titanic beserta alasannya.</li>
+<li>Mengapa efek encoding bisa berbeda pada Logistic Regression dan Random Forest?</li>
+</ol>
+
+<h2>Kegiatan</h2>
+<ul>
+<li>Kerjakan <a href="{LKS}" target="_blank">LKS Colab: LKS_P3_Encoding_Feature_Thinking.ipynb</a>.
+Buka lalu <em>File &gt; Save a copy in Drive</em> lebih dulu, jika tidak pekerjaan Anda tidak tersimpan.</li>
+<li>Seluruh bahan pertemuan ini &mdash; modul PDF, LKS, dan dua video &mdash; ada di
+<a href="{DRIVE}" target="_blank">folder Google Drive Pertemuan 3</a>.</li>
+<li>Susun <strong>tabel ablation minimal empat baris</strong> (dua encoding x dua model) dan tiga
+visualisasi: confusion matrix model terbaik, feature importance atau koefisien, serta perbandingan skor
+sebelum dan sesudah penambahan fitur.</li>
+<li>Tulis mini-report satu halaman: <em>"Tiga Fitur Baru Terbaik"</em> &mdash; deskripsi, alasan domain,
+dan bukti metrik.</li>
+<li>Isi <a href="{EXIT}" target="_blank">forum exit-ticket Pertemuan 3</a> sebelum meninggalkan kelas.
+Dinilai skala 0-100 dan langsung masuk gradebook.</li>
+</ul>
+<p><em>Menuju Pertemuan 4:</em> hari ini Anda membandingkan beberapa setting. Pertemuan berikutnya membahas
+cara memastikan perbandingan itu adil &mdash; split, cross-validation, metrik untuk kelas tidak seimbang,
+dan data snooping. Bawa tabel ablation Anda.</p>

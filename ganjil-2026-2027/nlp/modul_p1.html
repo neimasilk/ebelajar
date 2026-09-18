@@ -1,0 +1,89 @@
+<!-- Modul Pertemuan 1 — Natural Language Processing (A & P) · Ganjil 2026/2027
+     Diperkaya 11 Sep 2026 dari deck P1 (33 slide) + halaman RPS NLP.
+     Draf bab buku ajar ber-ISBN (Target #2 semester). Placeholder: {FORUM} {DRIVE} -->
+<h2>Ringkasan</h2>
+<p>Anda memahami kalimat <em>"ular itu bisa berbisa"</em> dalam sepersekian detik &mdash; termasuk fakta bahwa
+dua kata <em>bisa</em> yang ditulis identik itu berarti sama sekali berbeda. Komputer tidak. Pertemuan ini
+membuka mata kuliah dengan pertanyaan dasarnya: <strong>apa itu NLP</strong>, kenapa bahasa manusia sulit
+bagi mesin, dan bagaimana 70 tahun perjalanan sejarahnya membentuk cara kita bekerja hari ini.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Mendefinisikan NLP dan membedakannya dari bidang AI lain.</li>
+<li>Menjelaskan empat sumber kesulitan bahasa manusia bagi komputer, dengan contoh bahasa Indonesia sendiri.</li>
+<li>Menguraikan empat gelombang sejarah NLP dan pemicu loncatan di antara gelombang-gelombang itu.</li>
+<li>Menunjukkan aplikasi NLP yang dipakai sehari-hari dan mengidentifikasi input-teks serta output-nya.</li>
+<li>Menggambar rantai kerja NLP dari teks mentah sampai aplikasi &mdash; yang sekaligus menjadi peta 16 pertemuan kelas ini.</li>
+</ol>
+
+<h2>Apa itu Natural Language Processing?</h2>
+<p>NLP adalah cabang kecerdasan buatan yang berfokus pada <strong>interaksi antara komputer dan bahasa
+manusia</strong>. Tujuannya membuat komputer mampu <strong>memahami, menafsirkan, dan menghasilkan</strong>
+bahasa dengan cara yang bernilai &mdash; dari menerjemahkan, menjawab, sampai meringkas.</p>
+
+<h3>Kenapa bahasa itu sulit untuk komputer</h3>
+<ul>
+<li><strong>Ambiguitas makna</strong> &mdash; "bisa": racun ular, atau kemampuan? Kata yang sama, arti bergantung konteks.</li>
+<li><strong>Ambiguitas struktur</strong> &mdash; "Saya melihat orang itu dengan teropong": siapa yang memakai teropong?</li>
+<li><strong>Urutan menentukan makna</strong> &mdash; "polisi menangkap pencuri" &ne; "pencuri menangkap polisi"; kata sama, kejadian berlawanan.</li>
+<li><strong>Imbuhan</strong> &mdash; bahasa Indonesia kaya afiks: <em>makan &rarr; makanan &rarr; termakan &rarr; pemakan</em>, semuanya dari satu akar kata dengan nuansa berbeda.</li>
+<li><strong>Pengetahuan dunia</strong> &mdash; "kantongnya berat" memang bukan tentang kantongnya; manusia langsung paham, mesin tidak.</li>
+</ul>
+
+<h3>Sejarah singkat: empat gelombang</h3>
+<table width="100%">
+<tr><th align="left">Gelombang</th><th align="left">Era</th><th align="left">Ide utama</th><th align="left">Batasnya</th></tr>
+<tr><td><strong>Aturan</strong></td><td>1950-an&ndash;1980-an</td><td>Grammar + kamus ditulis pakar (eksperimen terjemahan 1954, ELIZA 1966)</td><td>Rapuh: bahasa nyata selalu punya pengecualian</td></tr>
+<tr><td><strong>Statistik</strong></td><td>1990-an&ndash;2012</td><td>Belajar pola dari korpus besar dengan probabilitas</td><td>Butuh fitur rancang-tangan; data kelangkaan kata</td></tr>
+<tr><td><strong>Embeddings</strong></td><td>2013&ndash;2017</td><td>Makna sebagai vektor (word2vec): kata serupa dekat di ruang vektor</td><td>Satu vektor per kata &mdash; konteks masih terabaikan</td></tr>
+<tr><td><strong>Transformer</strong></td><td>2017&ndash;sekarang</td><td>Mekanisme <em>attention</em>; BERT, GPT; konteks penuh kalimat</td><td>Butuh komputasi besar &mdash; tapi inilah standar hari ini</td></tr>
+</table>
+<p>Pemicu lompatan terakhir bukan cuma algoritma &mdash; melainkan <strong>daya komputasi</strong> dan
+<strong>tersedianya teks dalam jumlah sangat besar</strong>.</p>
+
+<h3>Aplikasi yang Anda pakai hari ini</h3>
+<ul>
+<li><strong>Terjemahan mesin</strong> &mdash; Google Translate, DeepL</li>
+<li><strong>Asisten virtual</strong> &mdash; Siri, Google Assistant, Alexa</li>
+<li><strong>Analisis sentimen</strong> &mdash; memantau opini publik di media sosial terhadap produk atau isu</li>
+<li><strong>Pemeriksa ejaan &amp; tata bahasa</strong> &mdash; Grammarly, autocorrect ponsel Anda</li>
+<li><strong>Chatbot</strong> &mdash; layanan pelanggan otomatis di situs web</li>
+</ul>
+
+<h3>Rantai kerja NLP &mdash; peta seluruh semester</h3>
+<ol>
+<li><strong>Teks mentah</strong> &mdash; komentar, ulasan, dokumen, transkrip</li>
+<li><strong>Preprocessing</strong> &mdash; tokenisasi, stopwords, stemming/lemmatization <em>(Pertemuan 2&ndash;3)</em></li>
+<li><strong>Representasi</strong> &mdash; BoW, TF-IDF, word embeddings <em>(Pertemuan 4&ndash;6)</em></li>
+<li><strong>Model &amp; klasifikasi</strong> <em>(Pertemuan 7&ndash;10)</em></li>
+<li><strong>Transformer &amp; aplikasi akhir</strong> <em>(Pertemuan 11&ndash;16)</em></li>
+</ol>
+<p><strong>Model bahasa terbaik pun tetap berdiri di atas teks yang Anda siapkan.</strong> Itu sebabnya tujuh
+pertemuan pertama kelas ini tidak menyentuh Transformer sama sekali &mdash; melainkan mengajari Anda
+memperlakukan teks dengan benar.</p>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>NLP = membuat komputer memahami, menafsirkan, dan menghasilkan bahasa manusia.</li>
+<li>Bahasa sulit karena ambiguitas makna &amp; struktur, urutan, imbuhan, dan kebutuhan pengetahuan dunia.</li>
+<li>Empat gelombang: aturan &rarr; statistik &rarr; embeddings &rarr; Transformer; pemicunya data dan komputasi, bukan hanya ide.</li>
+<li>Rantai kerja NLP dimulai dari preprocessing &mdash; dan itu peta semester kita.</li>
+</ul>
+
+<h2>Uji pemahaman mandiri</h2>
+<ol>
+<li>Buat <em>satu</em> contoh kalimat bahasa Indonesia yang ambigu, dan jelaskan dua tafsirnya.</li>
+<li>Mengapa pendekatan berbasis aturan yang pernah mendominasi 30 tahun akhirnya kalah oleh statistik?</li>
+<li>Apa beda cara <em>statistik</em> dan <em>embedding</em> memandang kemiripan dua kata? Beri contoh sepasang kata.</li>
+<li>Pilih satu aplikasi NLP yang Anda pakai minggu ini: apa input teksnya, apa output-nya, dan bagian rantai kerja mana yang paling menentukan mutunya?</li>
+</ol>
+
+<h2>Kegiatan &amp; bahan terkait</h2>
+<ul>
+<li><strong>Forum diskusi</strong> &mdash; tuliskan satu aplikasi NLP yang Anda temui, input/output-nya, dan satu hal yang membuatnya masih sering salah:
+<a href="{FORUM}">Diskusi: Aplikasi NLP di Sekitar Kita</a></li>
+<li><strong>Colab Pertemuan 1</strong> &mdash; percobaan kecil pengantar: <a href="https://colab.research.google.com/drive/1VNG5C3LxqwQI4JnAUyXbbsXABYMlrVJ5?usp=sharing">buka notebook</a></li>
+<li><strong>Slide &amp; bahan lengkap</strong> di Google Drive: <a href="{DRIVE}">folder Pertemuan 1</a></li>
+<li><strong>Persiapan Pertemuan 2</strong>: pasang Python 3.10+ (Jupyter/VS Code) + pustaka NLTK/spaCy dan pandas; unduh data NLTK dari rumah &mdash; bukan saat jam praktikum.</li>
+</ul>

@@ -1,0 +1,96 @@
+<!-- Modul Pertemuan 2 — Pembelajaran Mesin (A & P) · Ganjil 2026/2027
+     Diperkaya 11 Sep 2026 dari modul lama + deck P1 (lanjutan).
+     Draf bab buku ajar ber-ISBN (Target #2 semester). Placeholder: {TUGAS} -->
+<h2>Ringkasan</h2>
+<p>Pertemuan 1 menutup dengan tiga masalah bawaan data nyata. Pertemuan ini memperdalam dua di antaranya:
+<strong>penanganan missing values yang lebih matang</strong>, dan <strong>pemilihan teknik penskalaan</strong>
+&mdash; <em>normalization</em> atau <em>standardization</em>. Semua materi di sini adalah bahan langsung
+untuk <strong>Tugas 1</strong>.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Memilih metode imputasi yang sesuai dengan tipe kolom (numerik, kategorikal, time-series) dan membenarkan pilihannya.</li>
+<li>Menjelaskan perbedaan <em>normalization</em> (min-max) dan <em>standardization</em> (z-score) secara matematis dan intuitif.</li>
+<li>Menentukan kapan penskalaan justru <em>tidak perlu</em> (misalnya untuk model berbasis pohon).</li>
+<li>Menerapkan keduanya di scikit-learn dengan bebas <em>data leakage</em>.</li>
+</ol>
+
+<h2>Handling missing values, lebih dalam</h2>
+<p>Selain menghapus atau mengisi dengan nilai statistik dasar, pilihan imputasi sebaiknya disesuaikan dengan
+sifat kolomnya:</p>
+<table width="100%">
+<tr><th align="left">Metode</th><th align="left">Cocok untuk</th><th align="left">Catatan</th></tr>
+<tr><td><strong>Mean imputation</strong></td><td>Numerik, distribusi simetris</td><td>Sensitif terhadap outlier &mdash; satu nilai ekstrem menggeser rata-rata</td></tr>
+<tr><td><strong>Median imputation</strong></td><td>Numerik, ada outlier</td><td>Umumnya pilihan lebih aman; default yang layak dipakai</td></tr>
+<tr><td><strong>Mode imputation</strong></td><td>Kategorikal</td><td>Mengisi dengan kategori yang paling sering muncul</td></tr>
+<tr><td><strong>Forward/backward fill</strong></td><td>Time-series</td><td>Mengisi dari baris sebelum/sesudahnya &mdash; masuk akal karena data berurutan waktu</td></tr>
+</table>
+<p>Keputusan <strong>buang vs isi</strong> tetap pertimbangkan proporsinya: membuang 2% baris wajar,
+membuang 40% baris berarti kehilangan informasi berlebihan &mdash; dan bisa memperkenalkan bias kalau
+yang hilang bukan acak.</p>
+
+<h2>Normalization vs Standardization</h2>
+<p>Keduanya teknik penskalaan fitur, tapi pendekatan dan konsekuensinya berbeda:</p>
+<h3>Normalization (Min-Max Scaling)</h3>
+<p>Mengubah skala ke rentang tetap, biasanya [0, 1]: <code>x' = (x &minus; min) / (max &minus; min)</code></p>
+<ul>
+<li><strong>Cocok untuk</strong> algoritma yang tidak membuat asumsi distribusi data: K-Nearest Neighbors, Neural Networks</li>
+<li><strong>Sensitif outlier</strong> &mdash; satu nilai ekstrem memampatkan sisanya ke rentang sempit</li>
+</ul>
+<h3>Standardization (Z-score)</h3>
+<p>Mengubah data agar punya rata-rata 0 dan standar deviasi 1: <code>z = (x &minus; &mu;) / &sigma;</code></p>
+<ul>
+<li><strong>Tidak terikat rentang tertentu</strong> dan kurang terpengaruh outlier</li>
+<li><strong>Cocok untuk</strong> algoritma yang mengasumsikan data terdistribusi normal: regresi linear, SVM, PCA</li>
+</ul>
+<table width="100%">
+<tr><th align="left"></th><th align="left">Min-Max</th><th align="left">Z-score</th></tr>
+<tr><td>Rentang hasil</td><td>[0, 1] tetap</td><td>Tanpa batas tetap</td></tr>
+<tr><td>Outlier</td><td>Sangat terpengaruh</td><td>Relatif tahan</td></tr>
+<tr><td>Umum dipakai di</td><td>KNN, Neural Networks, citra</td><td>Regresi, SVM, PCA, clustering</td></tr>
+</table>
+<p><strong>Satu pengecualian penting:</strong> model berbasis pohon (Decision Tree, Random Forest) praktis
+<strong>tidak membutuhkan penskalaan</strong> &mdash; pohon memutuskan berdasarkan ambang per fitur, bukan jarak.
+Menskalakan data untuk random forest tidak merugikan, tapi juga tidak menolong.</p>
+
+<h3>Terapkan dengan bebas leakage</h3>
+<p>Ingat aturan Pertemuan 1: <strong>split dulu, baru fit</strong>. Dalam Pipeline, <em>scaler</em>
+belajar min/max (atau &mu; dan &sigma;) <strong>hanya dari data latih</strong>, lalu menerapkannya ke data uji:</p>
+<pre>from sklearn.pipeline import Pipeline
+from sklearn.preprocessing import StandardScaler
+from sklearn.impute import SimpleImputer
+from sklearn.neighbors import KNeighborsClassifier
+
+pipe = Pipeline([
+    ('imputer', SimpleImputer(strategy='median')),
+    ('scaler',  StandardScaler()),
+    ('knn',     KNeighborsClassifier(n_neighbors=5)),
+])
+pipe.fit(X_train, y_train)
+pipe.score(X_test, y_test)</pre>
+<p>Coba ganti <code>StandardScaler()</code> dengan <code>MinMaxScaler()</code> dan bandingkan akurasinya
+pada dataset yang Anda pakai di Tugas 1 &mdash; perbedaannya kecil atau besar? Kalau besar, cari tahu kenapa.</p>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>Pilih imputasi sesuai sifat kolom: median untuk numerik ber-outlier, modus untuk kategorikal, ffill/bfill untuk time-series.</li>
+<li>Min-max menghasilkan rentang [0,1] tapi sensitif outlier; z-score lebih tahan outlier dan pas untuk asumsi normal.</li>
+<li>Model berbasis pohon tidak butuh penskalaan &mdash; kenapa, harus bisa Anda jelaskan.</li>
+<li>Apa pun skalernya: fit hanya pada data latih, terapkan ke data uji &mdash; selalu.</li>
+</ul>
+
+<h2>Uji pemahaman mandiri</h2>
+<ol>
+<li>Kolom "penghasilan" punya beberapa nilai ekstrem dan 12% nilai kosong. Metode imputasi apa yang Anda pilih, dan kenapa bukan mean?</li>
+<li>Mengapa min-max scaling buruk untuk kolom dengan outlier ekstrem? Ilustrasikan dengan angka.</li>
+<li>Model Anda berbasis Random Forest. Apa yang terjadi kalau Anda tetap men-standardisasi datanya?</li>
+<li>Kapan penghapusan baris (bukan imputasi) justru keputusan yang benar?</li>
+</ol>
+
+<h2>Kegiatan &amp; bahan terkait</h2>
+<ul>
+<li><strong>Tugas 1 &mdash; Praktek Preprocessing Data</strong> (materi P1 + P2 = bahan langsungnya):
+<a href="{TUGAS}">buka Tugas 1</a>. Gunakan Modul Mandiri Pertemuan 1 sebagai panduan langkah kerja dan rubrik penilaiannya.</li>
+<li>Slide Pertemuan 1 di Google Drive tetap relevan sebagai bacaan ulang sebelum mengerjakan.</li>
+</ul>

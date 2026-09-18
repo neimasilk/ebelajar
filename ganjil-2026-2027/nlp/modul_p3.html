@@ -1,0 +1,122 @@
+<!-- Modul Pertemuan 3 - Natural Language Processing (A & P) - Ganjil 2026/2027
+     Ditulis 18 Sep 2026 dari Modul Mandiri P3 di Drive ("Stemming & Lemmatization, Tanpa spaCy")
+     + LKS Colab NLP_Pertemuan_3_Stemming_Lemmatization.ipynb.
+     Draf bab buku ajar ber-ISBN (Target #2 semester). Placeholder: {DRIVE} {LKS} {EXIT} -->
+<h2>Ringkasan</h2>
+<p>Pertemuan 2 mengajarkan cara memecah teks dan membuang kata yang terlalu umum. Pertemuan ini melangkah
+satu tingkat lebih dalam: <strong>menyeragamkan bentuk kata itu sendiri</strong>. Kata <em>membaca, dibaca,
+bacaan, membacakan</em> berasal dari satu akar, tetapi bagi program yang Anda tulis minggu lalu keempatnya
+adalah empat kata berbeda. Dua teknik menanganinya &mdash; <strong>stemming</strong> (memangkas imbuhan
+secara heuristik) dan <strong>lemmatization</strong> (mencari bentuk kamus). Keduanya mengecilkan kosakata,
+dan keduanya membuang sebagian makna. Bab ini menunjukkan berapa banyak yang dihemat, dan apa harganya.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Melakukan <strong>stemming bahasa Indonesia</strong> dengan Sastrawi dan <strong>lemmatization
+bahasa Inggris</strong> dengan NLTK WordNet.</li>
+<li>Menjelaskan mengapa lemmatization memerlukan informasi <strong>kelas kata (POS)</strong> sedangkan
+stemming tidak.</li>
+<li>Mengukur <strong>dampak normalisasi terhadap ukuran kosakata</strong> dan menjelaskan implikasinya
+terhadap jumlah fitur pada BoW/TF-IDF (Pertemuan 4).</li>
+<li>Memutuskan kapan memilih stemming, kapan lemmatization, dan kapan sebaiknya tidak menormalisasi
+sama sekali.</li>
+</ol>
+
+<h2>Stemming: memangkas, bukan memahami</h2>
+<p><strong>Stemming</strong> mengembalikan kata ke bentuk dasarnya dengan aturan morfologi. Hasilnya disebut
+<em>stem</em>, dan stem <strong>tidak harus</strong> berupa kata yang sah. Untuk bahasa Indonesia, pustaka
+yang matang adalah <strong>Sastrawi</strong>, implementasi algoritma <strong>Nazief-Adriani</strong>: sebuah
+kamus kata dasar ditambah aturan pelepasan imbuhan.</p>
+<ul>
+<li><em>mempermainkan</em> &rarr; <em>main</em></li>
+<li><em>pembelajaran</em> &rarr; <em>ajar</em></li>
+<li><em>berlari-lari</em> &rarr; <em>lari</em></li>
+</ul>
+<p>Perhatikan contoh ketiga. Reduplikasi <em>berlari-lari</em> membawa makna perbuatan yang berulang atau
+berkepanjangan. Setelah stemming, makna itu hilang tanpa jejak. Ini bukan kerusakan yang tidak disengaja
+&mdash; ini memang yang diminta dari stemming.</p>
+
+<h2>Lemmatization: mencari bentuk kamus</h2>
+<p><strong>Lemmatization</strong> mengembalikan kata ke <em>lemma</em>, yaitu bentuk yang benar-benar ada di
+kamus. Karena itu hasilnya selalu kata yang sah &mdash; tetapi harganya, ia perlu tahu kata itu berfungsi
+sebagai apa dalam kalimat.</p>
+<p>Di NLTK, <code>WordNetLemmatizer</code> secara bawaan menganggap <strong>semua kata adalah kata benda</strong>.
+Inilah sumber kebingungan yang paling sering:</p>
+<ul>
+<li><code>lemmatize("studying")</code> &rarr; <em>studying</em> (tidak berubah &mdash; dikira kata benda)</li>
+<li><code>lemmatize("studying", pos="v")</code> &rarr; <em>study</em></li>
+<li><code>lemmatize("better", pos="a")</code> &rarr; <em>good</em></li>
+</ul>
+<p>Contoh terakhir layak diperhatikan: <em>better</em> menjadi <em>good</em> bukan dengan memotong huruf,
+melainkan dengan melompat ke entri kamus yang lain. Stemming tidak akan pernah bisa melakukan itu.</p>
+
+<h3>Mengapa bahasa Indonesia hanya mendapat stemming</h3>
+<p>Modul mandiri menyatakannya terus terang: <strong>lemmatizer bahasa Indonesia yang stabil belum umum
+tersedia</strong>. Karena itu di pertemuan ini bahasa Indonesia ditangani dengan stemming (Sastrawi) dan
+bahasa Inggris dengan lemmatization (WordNet). Ini bukan sekadar batasan teknis satu mata kuliah; ini
+gambaran nyata tentang bahasa yang <em>kekurangan sumber daya</em>: morfologinya kaya, alat pendukungnya
+tertinggal. Bagi Anda yang mencari topik tugas akhir, celah ini nyata dan bisa diukur.</p>
+
+<h3>Catatan alat: mengapa pertemuan ini tanpa spaCy</h3>
+<p>Pertemuan 2 memperkenalkan spaCy; pertemuan ini sengaja tidak memakainya. Alasannya bukan karena spaCy
+buruk, melainkan karena mutu lemmatizer-nya untuk bahasa Indonesia tidak setara Sastrawi yang memang
+dirancang untuk morfologi bahasa Indonesia &mdash; dan karena jalur NLTK memaksa Anda melihat POS secara
+eksplisit, bukan menyembunyikannya di dalam pipeline. Pelajaran alatnya: pilih pustaka menurut bahasa dan
+menurut seberapa besar kendali yang Anda butuhkan, bukan menurut mana yang paling populer.</p>
+
+<h2>Yang hilang saat normalisasi</h2>
+<p>Pola ini sudah Anda temui di Pertemuan 2 pada stopwords, dan berlaku lagi di sini dengan korban yang
+berbeda:</p>
+<ul>
+<li><em>berlari-lari</em> &rarr; <em>lari</em>: aspek berulang hilang</li>
+<li><em>membacakan</em> &rarr; <em>baca</em>: makna "untuk orang lain" hilang</li>
+<li><em>terpukul</em> &rarr; <em>pukul</em>: makna tidak sengaja / pasif hilang</li>
+</ul>
+<p>Aturan praktis yang bisa Anda pegang: bila tugasnya tentang <strong>topik</strong> (klasifikasi,
+pencarian, pengelompokan), normalisasi umumnya menolong karena data yang tadinya tersebar di banyak bentuk
+menjadi terkumpul. Bila tugasnya tentang <strong>makna halus atau gaya</strong> (sentimen bernuansa,
+atribusi penulis, pembangkitan teks), berhati-hatilah. Dan bila ragu: <strong>ukur</strong>, jangan menebak
+&mdash; bandingkan metrik dengan dan tanpa normalisasi.</p>
+
+<h2>Mengukur dampaknya</h2>
+<p>Klaim "kosakata berkurang" tidak berguna tanpa angka. Yang dilaporkan adalah <strong>berapa persen</strong>
+kosakata menyusut:</p>
+<pre>penyusutan = 1 - len(set(hasil)) / len(set(token_awal))</pre>
+<p>Gunakan teks yang cukup panjang (minimal lima sampai sepuluh kalimat). Pada satu kalimat, penyusutannya
+mendekati nol dan kesimpulan apa pun yang Anda tarik darinya akan menyesatkan. Angka penyusutan inilah yang
+langsung menjadi <em>jumlah kolom yang Anda hemat</em> saat membangun BoW dan TF-IDF di Pertemuan 4.</p>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>Stemming cepat dan kasar; lemmatization lambat, rapi, dan menuntut POS.</li>
+<li>Tanpa POS, <code>WordNetLemmatizer</code> memperlakukan semua kata sebagai kata benda.</li>
+<li>Bahasa Indonesia praktis hanya punya stemming; itu fakta lapangan, bukan kelalaian Anda.</li>
+<li>Setiap langkah normalisasi membuang informasi. Yang perlu diputuskan: informasi itu penting atau tidak
+untuk tugas Anda.</li>
+<li>Laporkan angka penyusutan kosakata, bukan kesan.</li>
+</ul>
+
+<h2>Uji pemahaman</h2>
+<ol>
+<li>Mengapa <code>lemmatize("better")</code> mengembalikan <em>better</em>, dan apa yang harus ditambahkan
+agar hasilnya <em>good</em>?</li>
+<li>Sebutkan satu kata bahasa Indonesia yang hasil stemming-nya menurut Anda merusak makna. Tulis kata,
+hasil stem-nya, dan makna apa yang hilang.</li>
+<li>Untuk tugas pencarian dokumen berbahasa Indonesia, apakah Anda akan melakukan stemming? Mengapa?</li>
+<li>Apa hubungan antara penyusutan kosakata hari ini dengan jumlah fitur pada Pertemuan 4?</li>
+</ol>
+
+<h2>Kegiatan</h2>
+<ul>
+<li>Kerjakan <a href="{LKS}" target="_blank">LKS Colab: NLP_Pertemuan_3_Stemming_Lemmatization.ipynb</a>.
+Buka lalu <em>File &gt; Save a copy in Drive</em> lebih dulu, jika tidak pekerjaan Anda tidak tersimpan.</li>
+<li>Seluruh bahan pertemuan ini &mdash; modul PDF, LKS, dan dua video &mdash; ada di
+<a href="{DRIVE}" target="_blank">folder Google Drive Pertemuan 3</a>.</li>
+<li>Susun <strong>tabel komparasi</strong> dengan kolom: Language | Original | Tokens | After (Stem/Lemma).
+Sertakan contoh yang hasilnya mengejutkan, bukan hanya yang rapi.</li>
+<li>Isi <a href="{EXIT}" target="_blank">forum exit-ticket Pertemuan 3</a> sebelum meninggalkan kelas.
+Dinilai skala 0-100 dan langsung masuk gradebook.</li>
+</ul>
+<p><em>Menuju Pertemuan 4:</em> seluruh keputusan pra-proses sejak Pertemuan 2 bermuara pada satu hal &mdash;
+mengubah teks menjadi matriks angka. Bawa angka penyusutan kosakata Anda minggu depan.</p>

@@ -1,0 +1,104 @@
+<!-- Modul Pertemuan 2 — Natural Language Processing (A & P) · Ganjil 2026/2027
+     Diperkaya 11 Sep 2026 dari modul lama (894 kar.) + deck P1 rantai kerja NLP.
+     Draf bab buku ajar ber-ISBN (Target #2 semester). Placeholder: {TUGAS} -->
+<h2>Ringkasan</h2>
+<p>Preprocessing adalah langkah pertama rantai kerja NLP &mdash; dan mutu <em>semua</em> tahap berikutnya
+bergantung padanya. Pertemuan ini membahas dua teknik paling dasar: <strong>tokenisasi</strong> (memecah teks
+menjadi unit yang bisa diolah) dan <strong>penghapusan stopwords</strong> (membuang kata yang terlalu umum),
+beserta jebakannya di bahasa Indonesia.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Menjelaskan tokenisasi level kata dan level kalimat, dan memilih yang tepat untuk suatu keperluan.</li>
+<li>Mengidentifikasi tantangan tokenisasi khusus bahasa Indonesia: imbuhan dan kata gabung.</li>
+<li>Menjelaskan apa itu stopwords, kenapa dihapus, dan &mdash; lebih penting &mdash; <em>kapan justru tidak boleh dihapus</em>.</li>
+<li>Menerapkan keduanya di Python (NLTK) pada teks nyata sebagai dasar Tugas 1.</li>
+</ol>
+
+<h2>Tokenisasi</h2>
+<p>Tokenisasi adalah proses memecah teks menjadi unit yang lebih kecil yang disebut <strong>token</strong> &mdash;
+bisa kata, frasa, atau simbol. Ada dua level yang paling umum:</p>
+<ul>
+<li><strong>Tokenisasi kata (word-level)</strong> &mdash; memecah kalimat menjadi kata-kata individual:
+"Saya belajar NLP" &rarr; ["Saya", "belajar", "NLP"]</li>
+<li><strong>Tokenisasi kalimat (sentence-level)</strong> &mdash; memecah paragraf menjadi kalimat-kalimat;
+berguna untuk ringkasan atau analisis tingkat kalimat</li>
+</ul>
+
+<h3>Tantangan tokenisasi bahasa Indonesia</h3>
+<p>Bahasa Indonesia punya dua kekhasan yang membuat tokenisasi tidak sekadar <code>split(" ")</code>:</p>
+<ul>
+<li><strong>Imbuhan</strong> &mdash; <em>memakan, dimakan, makanan, termakan, pemakan</em> adalah lima token
+berbeda padahal satu akar (<em>makan</em>). Tanpa penanganan khusus, model menganggapnya lima kata tak berhubungan
+&mdash; di sinilah nanti stemming/lemmatization (Pertemuan 3) masuk.</li>
+<li><strong>Kata gabung &amp; singkatan</strong> &mdash; "kepada-nya", "di mana", "pt. abc": batas kata tidak selalu
+bersesuaian dengan spasi.</li>
+</ul>
+<p>Sebutan cepat untuk jalan ke depan: model modern memakai <strong>tokenisasi subword</strong> (BPE, WordPiece)
+yang memecah kata langka menjadi potongan yang lebih kecil &mdash; itulah yang dipakai Transformer di
+Pertemuan 11. Konsepnya dibangun dari masalah yang Anda lihat hari ini: kata baru terus muncul, kosakata
+penuh kata harus tetap tertangani.</p>
+
+<h2>Penghapusan stopwords</h2>
+<p><strong>Stopwords</strong> adalah kata yang sangat sering muncul dalam bahasa tetapi membawa sedikit makna
+informatif: <em>"yang, dan, di, ke, dari, itu, ini, adalah, dengan, untuk"</em>. Menghapusnya:</p>
+<ul>
+<li><strong>mengurangi ukuran data</strong> &mdash; stopwords bisa 20&ndash;40% jumlah kata dalam teks</li>
+<li><strong>membantu model fokus</strong> pada kata yang pembawa informasi &mdash; terutama untuk model klasik
+berbasis frekuensi seperti BoW/TF-IDF (Pertemuan 4)</li>
+</ul>
+
+<h3>Kapan justru TIDAK boleh dihapus</h3>
+<p>Inilah jebakan yang membedakan mahasiswa yang menyalin tutorial dengan yang memahami:</p>
+<ul>
+<li><strong>Analisis sentimen</strong> &mdash; "tidak bagus" jadi "bagus" kalau <em>tidak</em> ikut dihapus sebagai
+stopword. Negasi adalah informasi, bukan kebisingan.</li>
+<li><strong>Terjemahan &amp; chatbot</strong> &mdash; kalimat tanpa kata fungsi menjadi tidak gramatikal dan
+kehilangan nuansa.</li>
+<li><strong>Pencarian frasa</strong> &mdash; "bukti <em>di</em> atas kertas" dan "bukti atas kertas" tidak identik.</li>
+</ul>
+<p>Aturan praktisnya: <strong>hapus stopwords ketika model Anda bekerja di level kata berbasis frekuensi;
+pertahankan ketika urutan dan negasi berarti</strong>.</p>
+
+<h3>Contoh kode (NLTK)</h3>
+<pre>import nltk
+from nltk.tokenize import word_tokenize, sent_tokenize
+from nltk.corpus import stopwords
+
+nltk.download('punkt'); nltk.download('stopwords')
+
+teks = "Saya tidak suka layanan ini. Responnya lambat dan harganya mahal."
+kalimat = sent_tokenize(teks)
+token   = word_tokenize(teks.lower())
+
+sw_id = set(stopwords.words('indonesian'))
+bersih = [t for t in token if t.isalpha() and t not in sw_id]
+
+print(kalimat)  # tokenisasi kalimat
+print(bersih)   # hasil setelah buang stopwords</pre>
+<p>Periksa sendiri: apakah <em>"tidak"</em> ada di daftar stopwords NLTK untuk bahasa Indonesia?
+Kalau ada &mdash; apa konsekuensinya untuk analisis sentimen?</p>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>Tokenisasi memecah teks jadi token; level kata untuk klasifikasi, level kalimat untuk ringkasan/dokumen.</li>
+<li>Imbuhan membuat tokenisasi Indonesia tidak sekadar split-spasi &mdash; akar masalahnya dibersihkan di Pertemuan 3.</li>
+<li>Stopword = kata frekuensi-tinggi informasi-rendah; menghapusnya mengecilkan data dan menajamkan sinyal.</li>
+<li>Negasi, urutan, dan nuansa sering tinggal di stopword &mdash; hapus hanya kalau model Anda tak butuh itu.</li>
+</ul>
+
+<h2>Uji pemahaman mandiri</h2>
+<ol>
+<li>Untuk sistem "deteksi berita hoaks dari judul artikel", tokenisasi level apa yang Anda pakai? Mengapa?</li>
+<li>Sebutkan tiga kata hasil perimbuhan dari akar <em>"ajar"</em> dan jelaskan kenapa model yang tidak menangani imbuhan jadi kehilangan informasi.</li>
+<li>Tim Anda membangun analisis sentimen dan akurasinya anehnya rendah. Kenapa daftar stopwords bisa jadi tersangka pertama?</li>
+<li>Apa perbedaan tokenisasi word-level dan subword, dan kenapa Transformer memilih subword?</li>
+</ol>
+
+<h2>Kegiatan &amp; bahan terkait</h2>
+<ul>
+<li><strong>Tugas 1 &mdash; Praktik Tokenisasi dan Stopwords Removal</strong>: <a href="{TUGAS}">buka Tugas 1</a>.
+Materi pertemuan ini adalah seluruh bahan yang dibutuhkan untuk mengerjakannya.</li>
+<li>Kendala instalasi NLTK/spaCy &rarr; tanyakan di forum Diskusi Umum, bukan japri.</li>
+</ul>
