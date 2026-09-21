@@ -12,8 +12,10 @@ SUMBER (folder Drive "pertemuan 3" PM, id 1h8QxqSRIxa9xzKc6Xn0qquVJtCtDNF2o):
   - Video "Bahasa Rahasia Data"
 
 Slide #2 = Laporan feedback mingguan (ritual Senin). Angka diambil dari
-eBelajar 18 Sep 2026: 22 peserta; Tugas 1 terkumpul 2/22 (tenggat 27 Sep);
-exit-ticket P2 NOL posting mahasiswa; Perkenalan 1 dari 22.
+eBelajar 21 Sep 2026 pagi: 22 peserta; Tugas 1 terkumpul 6/22 dan keenamnya
+SUDAH dinilai dengan catatan revisi (tenggat 27 Sep, sisa 6 hari);
+exit-ticket P2 tetap NOL posting mahasiswa; Perkenalan 1 dari 22.
+Slide #4 = tabulasi nilai (rating forum + grade Tugas 1) per 21 Sep.
 """
 import os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -48,25 +50,49 @@ def build():
 
     # ============ RITUAL: FEEDBACK MINGGUAN ============
     table_slide(prs, "Laporan feedback - Minggu 2 (14-20 Sep)",
-                ["Yang saya periksa", "Hasil per 18 September"],
+                ["Yang saya periksa", "Hasil per 21 September pagi"],
                 [["*Forum P1", "*9 dari 9 posting sudah dibalas dan dinilai 80-90 - nilainya sudah ada di gradebook"],
                  ["*Exit-ticket P2", "*0 posting dari 22. Forum masih terbuka dan masih dinilai"],
-                 ["*Tugas 1", "*Terkumpul 2 dari 22. Tenggat Minggu 27 Sep 23.55 - sisa 9 hari"],
+                 ["*Tugas 1", "*Terkumpul 6 dari 22 - keenamnya sudah saya nilai dengan catatan revisi. Tenggat Minggu 27 Sep 23.55, sisa 6 hari"],
                  ["*Perkenalan", "*1 dari 22 (Faiz). Sudah dibalas"],
                  ["*Blokir kumpul", "*Sudah dibuka 15 Sep (setelan warisan 2025). Kalau masih gagal, lapor hari ini"]],
                 col_w=[3.6, 8.4], fs=16,
                 sub="Angka ini dibaca langsung dari eBelajar pagi ini, bukan perkiraan.",
                 note="Dua angka yang perlu disebut lisan dengan tegas: exit-ticket P2 NOL "
-                     "posting, dan Tugas 1 baru 2 dari 22 padahal tinggal 9 hari. Jangan "
-                     "menyalahkan - sampaikan sebagai fakta plus tawaran bantuan. Forum P1 "
-                     "menunjukkan mereka MAU posting kalau tahu dinilai; ulangi info itu.")
+                     "posting (dua minggu berturut-turut), dan Tugas 1 baru 6 dari 22 padahal "
+                     "tinggal 6 hari. Jangan menyalahkan - sampaikan sebagai fakta plus tawaran "
+                     "bantuan. Forum P1 menunjukkan mereka MAU posting kalau tahu dinilai; "
+                     "ulangi info itu.")
 
-    statement_slide(prs, "Tugas 1: 2 dari 22.\nSembilan hari lagi.",
-                    "Tugas 1 adalah praktek preprocessing - materi P1 dan P2 yang sudah kita kerjakan bersama. "
-                    "Kalau macet di satu langkah, tulis di forum Diskusi Umum hari ini juga; jangan menunggu tanggal 26.",
+    statement_slide(prs, "Tugas 1: 6 dari 22.\nEnam hari lagi.",
+                    "Enam yang sudah mengumpulkan menerima nilai plus catatan revisi di kolom komentar tugas "
+                    "(boleh perbaiki sampai tenggat). Sisanya: Tugas 1 adalah praktek preprocessing - materi P1 "
+                    "dan P2 yang sudah kita kerjakan bersama. Kalau macet di satu langkah, tulis di forum Diskusi "
+                    "Umum hari ini juga; jangan menunggu tanggal 26.",
                     color=RED,
                     note="Satu slide khusus supaya tidak lewat begitu saja. Tawarkan: 10 menit "
                          "di akhir kelas untuk yang mau tanya Tugas 1 langsung.")
+
+    table_slide(prs, "Tabulasi nilai s.d. pagi ini (21 Sep)",
+                ["Mahasiswa", "Forum P1", "Exit P2", "Tugas 1"],
+                [["Dico Havianto", "*90", "-", "*90"],
+                 ["Deswiryawan Saragih", "*88", "-", "*78"],
+                 ["Farrel Adhipratama", "*88", "-", "-"],
+                 ["Adinda Aprilia", "*87", "-", "-"],
+                 ["Benedictus Kevin", "*85", "-", "*60"],
+                 ["Faiz Ramadhan", "*84", "-", "*72"],
+                 ["Fattih Kuwaka", "*83", "-", "-"],
+                 ["Norbertus Bimantya", "*82", "-", "*62"],
+                 ["Hendy Utomo", "*80", "-", "-"],
+                 ["Much. Nashrulloh", "-", "-", "*80"]],
+                col_w=[4.6, 2.4, 2.4, 2.6], fs=14,
+                sub="Sumber: rating forum + grade Tugas 1 di eBelajar, dibaca pagi ini. Perkenalan: Faiz 85 (satu-satunya). "
+                    "Kosong = belum ada aktivitas - semuanya masih bisa dikejar sebelum tenggat 27 Sep.",
+                note="Sebut dua hal: (1) Dico dapat 90 di forum DAN di Tugas 1 - konsisten, "
+                     "itu pola yang ingin dilihat; (2) nilai 60-78 di Tugas 1 punya catatan "
+                     "revisi konkret di kolom komentar tugas - tunjukkan CARA melihat komentar "
+                     "itu di layar, karena mereka jarang membukanya. Exit-ticket P2 kolomnya "
+                     "kosong semua karena nol posting - jangan biarkan begitu lagi minggu ini.")
 
     content_slide(prs, "Alur 150 menit hari ini",
                   ["**Hook** - satu kolom kategori, tiga cara menyandikan, tiga hasil berbeda · 10'",
@@ -307,9 +333,9 @@ def build():
                    "(angka sebelum vs sesudah)",
                    "**3.** Satu rencana eksperimen lanjutan untuk **Pertemuan 4** (evaluasi & metrik)"],
                   sub="Forum exit-ticket P3 di eBelajar - dinilai skala 0-100 dan langsung masuk gradebook, sama seperti forum P1 yang sudah Anda lihat nilainya.",
-                  note="Sebut eksplisit: minggu lalu exit-ticket P2 nol posting. Ingatkan bahwa "
-                       "ini dinilai dan masuk gradebook, persis seperti forum P1 yang 9 orang "
-                       "sudah dapat 80-90. Beri waktu 5 menit di kelas untuk mengisi.")
+                  note="Sebut eksplisit: dua minggu beruntun exit-ticket nol posting (P1 sembilan "
+                       "orang posting saat tahu dinilai). Beri waktu 5 menit DI KELAS untuk "
+                       "mengisi sebelum keluar - jangan dijadikan PR.")
 
     content_slide(prs, "Pratinjau Pertemuan 4 - Evaluasi & Metrik yang Benar",
                   ["Hari ini Anda sudah membandingkan beberapa setting. Pertanyaan berikutnya: "
