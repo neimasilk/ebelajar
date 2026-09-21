@@ -10,8 +10,13 @@ SUMBER (folder Drive "pertemuan 3" NLP, id 14fspLWwgKmTOxrJnNs7d01-isrnW7oxY):
   - Video "Membedah Stemming vs ..."  +  "video presentasi pertemuan 3".
 
 Slide #2 = Laporan feedback mingguan (ritual Senin). Angka diambil dari
-eBelajar 18 Sep 2026: 3 peserta; Tugas 1 terkumpul 1/3; exit-ticket P2
-diisi 1 orang (Bahrum, dinilai 88); Perkenalan masih 0.
+eBelajar 21 Sep 2026 siang (siap kelas 22 Sep): exit-ticket P2 diisi 2/3
+(Bahrum 88, Rudolph 90 - Rudolph mengisi Minggu 20 Sep malam), diskusi P1
+2/3 posting (keduanya 88 dan sudah dibalas), Tugas 1 terkumpul 1/3
+(Bahrum, Kamis 17 Sep 00.49 - DINILAI 78 dengan catatan revisi: langkah
+wajib tokenisasi KALIMAT hilang, placeholder kesimpulan belum diisi,
+analisis pindah ke markdown), Perkenalan masih 0/3 (d=10667 cuma seed
+dosen). Kelas Selasa 22 Sep 08.00.
 
 Catatan penting: P2 mengajarkan spaCy, P3 justru TIDAK memakainya - modul
 memilih Sastrawi (stemming BI) + NLTK WordNet (lemmatization EN) karena
@@ -53,17 +58,39 @@ def build():
 
     # ============ RITUAL: FEEDBACK MINGGUAN ============
     table_slide(prs, "Laporan feedback - Minggu 2 (14-20 Sep)",
-                ["Yang saya periksa", "Hasil per 18 September"],
-                [["*Exit-ticket P2", "*1 dari 3 mengisi (Bahrum) - dibalas panjang, dinilai 88, masuk gradebook"],
-                 ["*Tugas 1", "*Terkumpul 1 dari 3. Tenggat Minggu 27 Sep 23.55 - sisa 9 hari"],
+                ["Yang saya periksa", "Hasil per 21 September"],
+                [["*Exit-ticket P2", "*2 dari 3 mengisi - Bahrum 88, Rudolph 90 (Minggu 20 Sep). Keduanya dibalas"],
+                 ["*Diskusi P1", "*2 dari 3 posting - Bahrum 88, Rudolph 88. Keduanya dibalas"],
+                 ["*Tugas 1", "*Terkumpul 1 dari 3 (Bahrum) - SUDAH DINILAI 78 dengan catatan revisi. Tenggat 27 Sep, sisa 6 hari"],
                  ["*Perkenalan", "*Masih 0 dari 3 - forum tetap dibuka, tetap dinilai"],
                  ["*Blokir kumpul", "*Sudah dibuka 15 Sep (setelan warisan 2025); kalau masih gagal, lapor hari ini"]],
                 col_w=[4, 8], fs=17,
                 sub="Kelas 3 orang: tidak ada yang tidak terlihat. Angka ini diambil langsung dari eBelajar, bukan perkiraan.",
-                note="Sebut nama: Bahrum satu-satunya pengisi exit-ticket, jawabannya dipakai "
-                     "sebagai bahan pembuka hari ini (slide berikutnya). Hafiz dan Rudolph: "
-                     "forum P2 masih terbuka dan masih dinilai - tidak ada tenggat mati untuk "
-                     "exit-ticket. Yang punya tenggat mati: Tugas 1, 27 Sep.")
+                note="Rudolph bangkit: awalnya diam, kini mengisi exit P2 (Minggu malam, jawaban "
+                     "level lanjut) dan P1 - dua-duanya dibalas dan dinilai. Hafiz belum muncul "
+                     "sama sekali: nol posting, nol submission - sapa langsung hari ini. Bahrum "
+                     "sudah kerja semua. Forum exit-ticket tidak punya tenggat mati; yang punya "
+                     "tenggat mati: Tugas 1, 27 Sep.")
+
+    table_slide(prs, "Tabulasi nilai s.d. pagi ini (21 Sep)",
+                ["Mahasiswa", "Forum P1", "Exit P2", "Tugas 1"],
+                [["Bahrum Rumbalifar", "*88", "*88", "*78"],
+                 ["Rudolph Gaspersz", "*88", "*90", "-"],
+                 ["Hafizh Habibulloh", "-", "-", "-"]],
+                col_w=[4.6, 2.4, 2.4, 2.6], fs=16,
+                sub="Sumber: rating forum + grade Tugas 1 di eBelajar, dibaca pagi ini. Perkenalan: belum ada yang mengisi. Kosong = masih bisa dikejar - Tugas 1 tenggat 27 Sep.",
+                note="Tiga orang, jadi tabulasinya kecil tapi personal. Sebut dua hal: (1) Tugas 1 "
+                     "Bahrum 78 punya catatan revisi konkret di kolom komentar tugas - tunjukkan "
+                     "CARA melihat komentar itu di layar; (2) Rudolph dan Hafiz masih bisa "
+                     "mengumpulkan sampai Minggu 27 Sep 23.55.")
+
+    statement_slide(prs, "Tugas 1: 1 dari 3.\nEnam hari lagi.",
+                    "Bahrum sudah mengumpulkan dan sudah menerima nilai plus catatan revisi. Rudolph, "
+                    "Hafiz: tenggat Minggu 27 Sep 23.55 - dan langkah nomor satu (tokenisasi kalimat) "
+                    "adalah langkah yang paling sering terlewat. Kalau macet, tulis di forum Diskusi "
+                    "Umum hari ini; jangan menunggu tanggal 26.",
+                    note="Kelas 3 orang - ini bukan peringatan massal, ini pesan personal ke dua orang "
+                         "di ruangan. Ucapkan nama mereka.")
 
     content_slide(prs, "Jawaban exit-ticket P2 yang jadi pintu masuk hari ini",
                   ["Bahrum menjawab benar ketiganya. Dua hal darinya langsung menyambung ke materi P3:",
@@ -76,7 +103,9 @@ def build():
                   sub="Pola yang berulang: setiap langkah normalisasi membuang sesuatu. Pertanyaannya selalu - apa yang boleh hilang?",
                   note="Ini jembatan naratif dari P2 ke P3. Poin besarnya: di P2 kita belajar "
                        "membuang stopwords bisa merusak negasi. Di P3 kita belajar memangkas "
-                       "imbuhan bisa merusak aspek/intensitas. Prinsipnya sama, korbannya beda.")
+                       "imbuhan bisa merusak aspek/intensitas. Prinsipnya sama, korbannya beda. "
+                       "Pembanding: Rudolph juga mengisi exit P2 Minggu malam dan jawaban nomor "
+                       "1-nya menyentuh negasi yang tersembunyi di daftar stopwords - level lanjut.")
 
     content_slide(prs, "Alur 150 menit hari ini",
                   ["**Hook** - satu kata, lima bentuk: kenapa kosakata meledak · 10'",
@@ -336,8 +365,9 @@ def build():
                 col_w=[3.4, 7.4, 1.4], fs=16,
                 sub="Penamaan berkas di eBelajar: P3-NLP-NIM-Nama",
                 note="Ingatkan beda dengan Tugas 1: ini penugasan modul P3, tenggatnya akan "
-                     "diumumkan di eBelajar. Tugas 1 (tokenisasi & stopwords) tetap tenggat "
-                     "27 Sep dan baru 1 dari 3 yang mengumpulkan.")
+                     "diumumkan di eBelajar. Tugas 1 (tokenisasi & stopwords) tenggat 27 Sep - "
+                     "Bahrum sudah kumpul (dinilai 78, ada catatan revisi); Rudolph dan Hafiz "
+                     "masih bisa mengumpulkan.")
 
     content_slide(prs, "Reproducibility & etika - dua syarat yang mudah dilupakan",
                   ["**Cantumkan versi paket** (`pip freeze` secukupnya, atau `requirements.txt`)",
