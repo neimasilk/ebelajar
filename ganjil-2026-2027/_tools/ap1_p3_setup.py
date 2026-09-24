@@ -28,14 +28,16 @@ DRIVE_P3 = "https://drive.google.com/drive/folders/1QScoRtDclfPY3hes3UMmJv3rcj6I
 SEC3_NAME = "Pertemuan 3 - Estetika dalam Desain UI & Penyusunan Proposal Proyek"
 
 TUGAS3_INTRO = """<p><strong>Tugas 3 - Dari wireframe ke mockup + draft proposal</strong> | Bobot sesuai RPS</p>
+<p><strong>Kebijakan AP: semua tugas adalah tugas kelompok.</strong> Seluruh tugas semester ini adalah
+potongan satu proyek kelompok yang berakhir di pameran proyek. Yang (masih) mengerjakan sendirian juga
+sah - kelompok boleh terbentuk belakangan; cukup catat nama kelompok dan anggota di berkas.</p>
 <p>Tiga deliverable mengikuti Modul Pertemuan 3:</p>
 <ol>
-<li><strong>Tugas 3a - Style Guide</strong> (individu atau kelompok kecil): satu halaman berisi
+<li><strong>Tugas 3a - Style Guide</strong> (kelompok; sendirian juga sah): satu halaman berisi
 palet warna 5 peran + skala abu-abu, type scale (H1-H6, Body, Caption) + contoh ukuran/line-height,
-komponen inti dengan variasi state, aturan spacing 8-point. Berkas: <code>StyleGuide_P3.pdf</code>
-(tambahkan NIM_Nama untuk individu).</li>
-<li><strong>Tugas 3b - Mockup Dua Layar</strong> (individu): Beranda dan Layar Fitur Inti, fidelity
-menengah, konsisten dengan style guide. Berkas: <code>Mockup_P3_Home.pdf</code> +
+komponen inti dengan variasi state, aturan spacing 8-point. Berkas: <code>StyleGuide_P3.pdf</code>.</li>
+<li><strong>Tugas 3b - Mockup Dua Layar</strong> (kelompok; sendirian juga sah): Beranda dan Layar Fitur
+Inti, fidelity menengah, konsisten dengan style guide. Berkas: <code>Mockup_P3_Home.pdf</code> +
 <code>Mockup_P3_FiturInti.pdf</code> (file sumber opsional).</li>
 <li><strong>Tugas 3c - Draft Proposal</strong> (kelompok): 1-2 halaman berisi 7 komponen
 (Judul &amp; Ringkasan; Masalah &amp; Target Pengguna; Hipotesis Nilai; Fitur Inti MVP +
@@ -45,8 +47,9 @@ Berkas: <code>AP1_P3_KelompokX_Proposal.pdf</code>.</li>
 <p><strong>Rubrik (100 poin):</strong> Kualitas Style Guide 25; Estetika &amp; Konsistensi Mockup 30;
 Aksesibilitas &amp; Keterbacaan 20; Kecocokan dengan Tujuan Pengguna 15; Kerapian &amp; Kepatuhan
 Format 10. <strong>Lulus tugas: minimal 70.</strong></p>
-<p><em>Pelajaran dari Tugas 1: ini sebagian tugas individu - setiap orang mengumpulkan berkas
-sendiri untuk 3a/3b; foto/berkas bersama tanpa kontribusi individu dinilai rendah.</em></p>"""
+<p><em>Yang kemarin mengumpulkan Tugas 1 secara individu tidak perlu mengulang apa pun - pekerjaan
+itu tetap sah dan sudah dinilai. Untuk Tugas 3, manfaatkan kelompok: satu style guide bersama,
+pembagian layar mockup, kualitas proposal lebih tajam.</em></p>"""
 
 EXIT3_SEED = """<p>Balas diskusi ini dengan jawaban singkat (2-3 kalimat per nomor):</p>
 <ol>

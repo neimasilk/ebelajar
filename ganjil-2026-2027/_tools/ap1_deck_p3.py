@@ -64,8 +64,8 @@ PROPOSAL7 = [
 ]
 
 TUGAS3 = [
-    ["*3a - Style Guide", "Individu / kelompok kecil", "StyleGuide_P3.pdf", "25"],
-    ["*3b - Mockup 2 layar", "Individu", "Mockup_P3_Home.pdf + Mockup_P3_FiturInti.pdf", "30"],
+    ["*3a - Style Guide", "Kelompok (sendirian sah)", "StyleGuide_P3.pdf", "25"],
+    ["*3b - Mockup 2 layar", "Kelompok (sendirian sah)", "Mockup_P3_Home.pdf + Mockup_P3_FiturInti.pdf", "30"],
     ["*3c - Draft Proposal", "Kelompok", "AP1_P3_KelompokX_Proposal.pdf (1-2 hal)", "20+15+10"],
 ]
 
@@ -88,14 +88,15 @@ def build():
                  ["*Tugas 2", "*0 dari 24. Tenggat Minggu 27 Sep pukul 23.55 - sisa 3 hari"],
                  ["*Exit-ticket P2", "*%d posting. Forum terbuka dan tetap dinilai" % EXIT2_POST],
                  ["*Perkenalan", "*%d sudah dibalas dan dinilai 80 (Tyo, Devan, Andrean, Jibril, Marchel)" % PERKENALAN_DIBALAS],
-                 ["*Kelompok", "*%d kelompok terdaftar di sheet Drive. 4 nama belum tercatat: %s" % (KELOMPOK_TERDAFTAR, NAMA_BELUM_TERDAFTAR)]],
+                 ["*Kelompok", "*%d kelompok terdaftar di sheet Drive. 4 nama belum tercatat: %s - kelompok mungkin sudah terbentuk, konfirmasi hari ini" % (KELOMPOK_TERDAFTAR, NAMA_BELUM_TERDAFTAR)]],
                 col_w=[3.6, 8.4], fs=16,
                 sub="Angka dibaca langsung dari eBelajar pagi ini, bukan perkiraan.",
                 note="Poin lisan: (1) Tugas 1 yang 6 orang itu nilai plus catatannya sudah ada - "
                      "tunjukkan di layar cara membuka kolom komentar. (2) Tugas 2 nol tapi "
                      "tenggatnya Minggu - masih sangat bisa dikejar; Tugas 2 itu audit ergonomi "
                      "wireframe masing-masing + brainstorming ide, bahan ada di modul P2. "
-                     "(3) 4 nama yang belum tercatat di sheet: urus sebelum kelas berakhir.")
+                     "(3) 4 nama yang belum tercatat: konfirmasi hari ini - atau lanjut "
+                     "sendirian dulu, dua-duanya sah (slide kebijakan menyusul).")
 
     statement_slide(prs, "Tugas 2: %d dari %d.\nTiga hari lagi." % (T2_KUMPUL, T2_TOTAL),
                     "Tugas 2 = audit ergonomi + aksesibilitas atas wireframe Tugas 1 Anda, plus satu halaman "
@@ -113,20 +114,31 @@ def build():
                 sub="Sumber: rating forum + grade tugas di eBelajar, pagi ini. Kosong = belum ada aktivitas - semuanya masih bisa dikejar sebelum tenggat.",
                 note="Sebut: (1) Tugas 1 punya catatan revisi konkret per orang - buka "
                      "komentar tugas di layar, tunjukkan caranya. (2) Daffa 90 karena state "
-                     "empty/error dipikirkan; Andrean 70 karena yang dikumpulkan foto kelompok "
-                     "tanpa bagian individu - jangan disebut nama untuk contoh negatif tanpa "
-                     "perlu, cukup katakan 'tugas individu, berkas bersama dinilai rendah'. "
-                     "(3) Kolom Exit P2 kosong semua - hari ini wajib beda.")
+                     "empty/error dipikirkan; selisih nilai antar mahasiswa = kelengkapan "
+                     "anotasi dan narasi, BUKAN soal individu vs kelompok - semua tugas AP "
+                     "itu tugas kelompok (baca slide kebijakan). (3) Kolom Exit P2 kosong "
+                     "semua - hari ini wajib beda.")
 
     table_slide(prs, "Pembagian kelompok (sheet Drive, %d kelompok)" % KELOMPOK_TERDAFTAR,
                 ["Kelompok", "Anggota"],
                 KELOMPOK,
                 col_w=[3.0, 9.0], fs=15,
-                sub="Belum tercatat: %s - lengkapi sheet hari ini sebelum kelas bubar; tanpa kelompok, Tugas 3c tidak bisa dinilai." % NAMA_BELUM_TERDAFTAR,
-                note="Sekali sekaligus: kelompok = unit Tugas 3c (proposal) dan proyek "
-                     "semester. Yang belum masuk sheet datang ke depan setelah kelas. "
-                     "Firmanda/Yudha lintas angkatan boleh gabung kelompok 2025 yang ada "
-                     "atau bentuk pasangan sendiri.")
+                sub="Belum tercatat: %s - kelompok boleh terbentuk belakangan; yang belum punya kelompok tetap boleh mengerjakan sendirian." % NAMA_BELUM_TERDAFTAR,
+                note="Kelompok = unit proyek semester yang dipamerkan di akhir. Yang belum "
+                     "masuk sheet datang ke depan setelah kelas untuk dikunci. "
+                     "Firmanda/Yudha/Felix/Setya: gabung kelompok yang ada, bentuk sendiri, "
+                     "atau kerjakan sendirian dulu - semua sah.")
+
+    statement_slide(prs, "Kebijakan AP:\nsemua tugas adalah tugas kelompok.",
+                    "Seluruh tugas semester ini adalah potongan satu proyek kelompok yang "
+                    "berakhir di PAMERAN proyek. Yang mengerjakan sendirian juga sah - "
+                    "kelompok boleh terbentuk belakangan. Yang penting: nama kelompok dan "
+                    "seluruh anggota tercatat di berkas dan di sheet.",
+                    note="Bacakan jelas supaya tidak ada salah paham soal Tugas 1: yang "
+                         "kemarin mengumpulkan berkas bersama tidak bersalah; yang "
+                         "mengumpulkan sendiri juga sah. Yang dinilai = kelengkapan anotasi "
+                         "dan narasi. Ferdi & Notopianus: cukup submit berkas kelompok yang "
+                         "sama.")
 
     content_slide(prs, "Alur 100 menit hari ini",
                   ["**Feedback + kunci kelompok** - tabulasi, Tugas 2, daftar hadir kelompok · 15'",
@@ -203,7 +215,7 @@ def build():
                    "**Type scale** - H1-H6, Body, Caption + contoh ukuran dan line-height",
                    "**Komponen inti** - tombol primer/sekunder, input, kartu konten - tampilkan variasi state",
                    "**Spacing & grid** - tulis aturan 8-point dan satu contoh penerapannya di layout"],
-                  sub="Output Tugas 3a: StyleGuide_P3.pdf (individu atau kelompok kecil).",
+                  sub="Output Tugas 3a: StyleGuide_P3.pdf (kelompok; sendirian juga sah).",
                   note="Dikerjakan sekarang 30 menit di kelas. Kelompok yang sudah punya "
                        "ide proyek langsung pakai konteks proyeknya - palet untuk aplikasi "
                        "kesehatan beda dengan palet marketplace.")
@@ -217,7 +229,7 @@ def build():
                    "**Auto Layout** untuk jarak antar elemen - konsisten otomatis, bukan dikejar manual",
                    "**Components & Variants** untuk tombol/kartu - satu komponen, beberapa state",
                    "**Cek kontras** teks vs latar; elemen interaktif menonjol tapi tidak berteriak"],
-                  sub="Output Tugas 3b (individu): Mockup_P3_Home.pdf + Mockup_P3_FiturInti.pdf.",
+                  sub="Output Tugas 3b (kelompok; sendirian juga sah): Mockup_P3_Home.pdf + Mockup_P3_FiturInti.pdf.",
                   note="Fidelity MENENGAH: warna dan tipografi nyata, tapi belum perlu foto "
                        "asli/ilustrasi penuh. Placeholder berwarna solid masih boleh.")
 
@@ -244,7 +256,7 @@ def build():
                 ["Kriteria", "Poin"],
                 RUBRIK,
                 col_w=[9.6, 2.0], fs=15,
-                sub="Kerapian & kepatuhan format termasuk NIM_Nama di berkas individu dan nama kelompok di berkas kelompok.",
+                sub="Kerapian & kepatuhan format: nama kelompok dan seluruh anggota tercantum di berkas.",
                 note="Rubrik ini juga rubrik AUDIT diri: sebelum submit, cek sendiri per "
                      "baris. Nilai di bawah 70 = tugas diulang per bagian yang lemah.")
 
@@ -256,11 +268,11 @@ def build():
                 ["Bagian", "Siapa", "Berkas", "Poin rubrik"],
                 TUGAS3,
                 col_w=[2.8, 3.2, 4.4, 1.5], fs=14,
-                sub="Tugas 3a boleh kelompok kecil (max 2 orang); 3b WAJIB individu; 3c satu berkas per kelompok.",
-                note="Pelajaran Tugas 1 dibaca keras: sebagian tugas ini individu. Berkas "
-                     "bersama atas nama 3 orang TIDAK menghitung untuk yang tidak "
-                     "mengumpulkan. Ferdi dan Notopianus: berkas versi sendiri untuk Tugas 1 "
-                     "masih bisa menyelamatkan nilai - batas revisi ikut tenggat.")
+                sub="Semua bagian = kelompok; yang mengumpulkan sendirian juga sah. Satu set berkas per kelompok.",
+                note="Kebijakan resmi: tugas AP menuju pameran proyek, jadi semua tugas "
+                     "kelompok - tidak ada hukuman untuk berkas bersama. Ferdi dan "
+                     "Notopianus (dan siapa pun yang belum submit Tugas 1): cukup kirim "
+                     "berkas kelompok yang sama plus catatan anggota.")
 
     content_slide(prs, "Refleksi cepat - jawab sebelum keluar",
                   ["Keputusan estetika apa yang paling meningkatkan **kejelasan tujuan pengguna**?",
