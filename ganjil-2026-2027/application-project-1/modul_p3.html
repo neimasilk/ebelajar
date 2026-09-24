@@ -1,0 +1,109 @@
+<!-- Modul Pertemuan 3 - Application Project I (A) · Ganjil 2026/2027
+     Dibangun 24 Sep 2026 dari Modul Mandiri Pertemuan 3 (PDF di Drive).
+     ASCII ketat: tanpa -/&ndash;/&ge; (korup jadi U+FFFD via API).
+     Placeholder: {TUGAS3} {EXIT} {DRIVE} {DISKUSI} -->
+<h2>Ringkasan</h2>
+<p>Pertemuan 1 memberi tiga prinsip desain, pertemuan 2 melatih ergonomi dan aksesibilitas lalu
+mengunci ide proyek. Pertemuan ini menaikkan kualitas visual: dari <strong>wireframe polos</strong>
+menjadi <strong>mockup yang konsisten dan meyakinkan</strong> lewat empat alat estetika (komposisi,
+warna, tipografi, whitespace), lalu memadatkan arah proyek ke dalam <strong>draft proposal
+1-2 halaman</strong> yang divalidasi pada pertemuan berikutnya.</p>
+
+<h2>Capaian pembelajaran</h2>
+<p>Setelah menyelesaikan pertemuan ini, Anda mampu:</p>
+<ol>
+<li>Menjelaskan prinsip estetika UI: komposisi/layout, warna, tipografi, ritme dan whitespace.</li>
+<li>Menerapkan palet warna, skala tipografi, dan grid/spacing yang konsisten pada rancangan.</li>
+<li>Menghasilkan mockup fidelity menengah (2 layar) berdasarkan wireframe P1-P2.</li>
+<li>Menyusun draft proposal proyek ringkas sebagai landasan validasi pada pertemuan berikutnya.</li>
+</ol>
+
+<h2>Lima alat estetika UI</h2>
+
+<h3>1. Komposisi &amp; layout</h3>
+<ul>
+<li><strong>Grid dan kolom</strong> untuk keteraturan; terapkan ritme visual dengan
+<strong>8-point spacing system</strong> (4/8/16/24/32, dst.) - semua jarak adalah kelipatan.</li>
+<li><strong>Visual grouping (proximity)</strong> dan alignment yang konsisten untuk menegaskan hierarki.</li>
+</ul>
+
+<h3>2. Warna</h3>
+<ul>
+<li>Susun <strong>palet inti 5 peran</strong>: Primary, Secondary, Background, Surface, Accent.
+Tambahkan <strong>skala abu-abu</strong> (Gray-50 s.d. Gray-900) untuk teks dan garis bantu.</li>
+<li>Jaga <strong>kontras teks</strong> terhadap latar; variasi hue/saturation secukupnya agar tidak
+mengganggu fokus.</li>
+</ul>
+
+<h3>3. Tipografi</h3>
+<ul>
+<li>Tentukan <strong>type scale</strong> (misal H1-H6, Body, Caption); jaga <strong>line-height</strong>
+memadai untuk keterbacaan.</li>
+<li>Harmonisasi pasangan font (sans-serif untuk UI); hindari terlalu banyak keluarga font.</li>
+</ul>
+
+<h3>4. Visual rhythm &amp; whitespace</h3>
+<ul>
+<li>Manfaatkan ruang kosong untuk <strong>mengarahkan perhatian</strong>; atur densitas informasi agar
+tidak melelahkan.</li>
+</ul>
+
+<h3>5. Komponen &amp; state</h3>
+<ul>
+<li>Definisikan <strong>state komponen</strong> (default/hover/pressed/disabled) dan konsistensi bentuk
+(radius, border, shadow) - dokumentasikan semuanya di style guide.</li>
+</ul>
+
+<h2>Dari wireframe ke mockup</h2>
+<ol>
+<li><strong>Audit visual wireframe P2</strong> dengan kacamata estetika; catat minimal 3 temuan.</li>
+<li><strong>Style guide 1 halaman</strong>: palet warna + fungsi tiap warna, type scale + contoh
+ukuran/line-height, komponen inti (tombol primer/sekunder, input, kartu) dengan variasi state, aturan
+spacing 8-point.</li>
+<li><strong>Mockup fidelity menengah, 2 layar</strong> (Beranda dan Layar Fitur Inti) yang memakai style
+guide secara konsisten. Saran teknis Figma: Frame sesuai target (desktop 1440 atau mobile 390), Auto
+Layout untuk jarak, Components &amp; Variants untuk tombol/kartu, lalu periksa kontras teks vs latar.</li>
+</ol>
+
+<h2>Draft proposal proyek (7 komponen)</h2>
+<ol>
+<li><strong>Judul &amp; ringkasan</strong> (2-3 kalimat).</li>
+<li><strong>Masalah &amp; target pengguna</strong> (persona mini, konteks penggunaan).</li>
+<li><strong>Hipotesis nilai</strong> (manfaat utama untuk pengguna).</li>
+<li><strong>Fitur inti MVP</strong> (3-5 butir) dan <strong>Out-of-Scope</strong> untuk menjaga fokus.</li>
+<li><strong>Risiko &amp; asumsi kritis</strong> yang perlu divalidasi.</li>
+<li><strong>Metrik keberhasilan awal</strong> (contoh: penyelesaian tugas, waktu interaksi, konversi
+langkah utama).</li>
+<li><strong>Rencana validasi</strong> singkat pertemuan berikutnya (siapa, bagaimana, kapan).</li>
+</ol>
+
+<h2>Poin kunci</h2>
+<ul>
+<li>Estetika bukan hiasan: palet 5 peran + type scale + 8-point grid adalah <strong>sistem</strong> yang
+membuat 10 layar terlihat seperti satu produk.</li>
+<li>Style guide 1 halaman = kontrak visual; mockup yang menyimpang dari acuan itu bug desain.</li>
+<li>Whitespace mengarahkan perhatian; halaman padat bukan tanda lengkap, melainkan tanda belum diprioritaskan.</li>
+<li>Proposal 1-2 halaman memaksa keputusan: apa yang dibangun, apa yang tidak, dan bagaimana tahu itu berhasil.</li>
+</ul>
+
+<h2>Uji pemahaman mandiri</h2>
+<ol>
+<li>Fungsi utama whitespace adalah: a) memperbanyak konten, b) memperjelas hierarki dan fokus,
+c) menghemat tinggi layar, d) memperindah warna?</li>
+<li>Komponen UI yang baik harus: a) berubah gaya tiap halaman, b) tidak punya state, c) konsisten
+tampilan dan perilaku, d) tampil tanpa grid?</li>
+<li>Palet warna yang efektif: a) banyak warna cerah acak, b) satu warna untuk semua elemen,
+c) beberapa peran warna jelas + skala abu-abu, d) hanya hitam putih?</li>
+</ol>
+<p><em>Kunci: 1-b, 2-c, 3-c.</em></p>
+
+<h2>Kegiatan &amp; bahan terkait</h2>
+<ul>
+<li><strong>Pertanyaan teknis</strong> (akun Figma, dll.) : <a href="{DISKUSI}">forum Diskusi Umum</a>, bukan japri.</li>
+<li>Rujukan: Dan Olsen (2015), <em>The Lean Product Playbook</em>; Eric Ries (2011), <em>The Lean Startup</em>;
+Jake Knapp dkk. (2016), <em>Sprint</em>.</li>
+<li><a href="{TUGAS3}">TUGAS 3: Style Guide, Mockup &amp; Draft Proposal</a> - tenggat
+<strong>Minggu, 4 Oktober 2026 pukul 23.55</strong>.</li>
+<li><a href="{EXIT}">Exit-ticket Pertemuan 3</a> - tiga pertanyaan refleksi, dijawab di akhir kelas.</li>
+<li><a href="{DRIVE}">Bahan Pertemuan 3 di Google Drive</a> - Modul Pertemuan 3 (PDF) dan slide.</li>
+</ul>
